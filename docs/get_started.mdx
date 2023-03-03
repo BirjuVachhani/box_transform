@@ -8,80 +8,22 @@ title: Getting Started
 
 Add this package as dependency in your `pubspec.yaml` file:
 
-<Tabs
-  defaultValue="first"
-  groupId="packages"
-  groupId="packages"
-  values={[
-      { label: 'Flutter', value: 'first' },
-      { label: 'Pure Dart', value: 'second' },
-  ]}
->
-  <TabItem value="first">
-```dart title="Add dependency"
-dependencies:
-  flutter_box_transform: <latest_version>
+```dart
+  dependencies:
+    box_transform: <latest_version>
 ```
-  </TabItem>
-  <TabItem value="first">
-```dart title="Add dependency"
-dependencies:
-  box_transform: <latest_version>
-```
-  </TabItem>
-</Tabs>
 
 ## Usage
 
-<Tabs
-  defaultValue="first"
-  groupId="packages"
-  groupId="packages"
-  values={[
-    { label: 'Flutter', value: 'first' },
-    { label: 'Dart', value: 'second' },
-  ]}
->
-  <TabItem value="first">
-```dart title="Using as a widget"
-Stack(
-  children: [
-    BoxTransform(
-      box: box,
-      flip: flip,
-      onChanged: (box, flip) {
-        setState(() {
-          this.box = box;
-          this.flip = flip;
-        });
-      },
-      contentBuilder: (context, rect, flip) => Transform.scale(
-        scaleX: flip.isHorizontal ? -1 : 1,
-        scaleY: flip.isVertical ? -1 : 1,
-        child: Image.asset(
-          'assets/images/landscape.jpg',
-          width: rect.width,
-          height: rect.height,
-          fit: BoxFit.fill,
-        ),
-      ),
-    ),
-  ],
-);
-```
-  </TabItem>
-  <TabItem value="first">
 ```dart title="Resizing a Box"
-final Box box = Box.fromLTWH(50, 50, 100, 100);
-
-final ResizeResult result = BoxTransformer.resize(
-  handle: HandlePosition.bottomRight,
-  initialBox: box,
-  initialLocalPosition: Vector2.zero(),
-  localPosition: Vector2.zero(),
-  resizeMode: ResizeMode.freeform,
-  initialFlip: Flip.none,
-);
+  final Box box = Box.fromLTWH(50, 50, 100, 100);
+  
+  final ResizeResult result = BoxTransformer.resize(
+    handle: HandlePosition.bottomRight,
+    initialBox: box,
+    initialLocalPosition: Vector2.zero(),
+    localPosition: Vector2.zero(),
+    resizeMode: ResizeMode.freeform,
+    initialFlip: Flip.none,
+  );
 ```
-  </TabItem>
-</Tabs>
