@@ -14,15 +14,15 @@
     ],
     [
       "Using with Flutter", [
-      ["Moving", "/flutter_moving.mdx"],
-      ["Resizing", "/flutter_resizing.mdx"],
-      ["Using controller", "/flutter_controller.mdx"]
+      ["Moving", "/flutter_moving"],
+      ["Resizing", "/flutter_resizing"],
+      ["Using controller", "/flutter_controller"]
     ]
     ],
     [
       "Using the Dart API", [
-      ["Moving", "/moving.mdx"],
-      ["Resizing", "/resizing.mdx"]
+      ["Moving", "/moving"],
+      ["Resizing", "/resizing"]
     ]
     ],
     ["License", "/license"]
