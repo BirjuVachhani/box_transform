@@ -7,8 +7,24 @@
     ["Overview", "/"],
     ["Getting Started", "/get_started"],
     ["Motivation", "/motivation"],
-    ["Resize Modes", "/resize_modes"],
-    ["Box Transform", "/box_transform"],
-    ["Flutter Box Transform", "/flutter_transformable_box"]
+    [
+      "Definitions", [
+      ["Resize Modes", "/resize_modes"]
+    ]
+    ],
+    [
+      "Using with Flutter", [
+      ["Moving", "/flutter_moving.mdx"],
+      ["Resizing", "/flutter_resizing.mdx"],
+      ["Using controller", "/flutter_controller.mdx"]
+    ]
+    ],
+    [
+      "Using the Dart API", [
+      ["Moving", "/moving.mdx"],
+      ["Resizing", "/resizing.mdx"]
+    ]
+    ],
+    ["License", "/license"]
   ]
 }
