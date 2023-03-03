@@ -30,10 +30,10 @@ So, **_TransformableBox_** must be a child of **_Stack_** widget.</Info>
       TransformableBox(
         box: box,
         flip: flip,
-        onChanged: (box, flip) {
+        onChanged: (event) {
           setState(() { // update the state
-            this.box = box;
-            this.flip = flip;
+            box = event.rect;
+            flip = event.flip;
           });
         },
         contentBuilder: (context, rect, flip) => Transform.scale(

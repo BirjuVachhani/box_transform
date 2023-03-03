@@ -1,12 +1,28 @@
 ---
-title: Transformable Box
+title: Resizing
 ---
 
-[Transformable Box](transformableBox) is a Flutter widget that fully utilizes [Box Transform](boxTransform) to create
-a fully-featured Flutter implementation of the [Box Transform](boxTransform) API.
+# Resizing
 
-This widget exists out of convenience and is not essentially, but rather heavily simplifies the usage and implementation
-of a box that can be transformed. It is maximally customizable.
+`TransformableBox` can be used to resize a widget by default. [Transformable Box](transformableBox) utilizes 
+[Box Transform](boxTransform) to create a fully-featured Flutter implementation of the [Box Transform](boxTransform) API.
+
+```dart title="Resizable widget"
+  Stack(
+    children: [
+      TransformableBox(
+        box: box, // position
+        onChanged: (event) {
+          setState(() {
+            this.box = event.rect;
+            this.flip = event.flip;
+          });
+        },
+        contentBuilder: {...},
+      ),
+    ],
+  );
+```
 
 ## Usage
 

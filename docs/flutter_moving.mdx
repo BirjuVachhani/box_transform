@@ -11,29 +11,16 @@ title: Moving
     children: [
       TransformableBox(
         box: box, // position
-        onMoved: (box) {
-          setState(() => this.box = box);
+        onMoved: (event) {
+          setState(() => this.box = event.rect);
         },
         contentBuilder: {...},
       ),
     ],
   );
 ```
-`onMoved` callback is called when user moves the box. You can use this callback to update the box by calling
-`setState` method explicitly. You can also use `TransformableBox.onChanged` callback to listen to both resize and move
-events.
-
-## Disable moving
-
-Setting `TransformableBox.movable` to `false` will disable moving.
-
-```dart title="Disable moving"
-  TransformableBox(
-    box: box, // position
-    movable: false,
-    ...
-  );
-```
+`onChanged` callback is called when user moves the box. You can use this callback to update the box by calling
+`setState` method explicitly. You can also use `TransformableBox.onMoved` callback to 
 
 ## Limiting movements
 
@@ -44,8 +31,8 @@ defines the boundary for the box to move within.
   TransformableBox(
     box: box, // position
     clampingBox: Rect.fromLTWH(0, 0, 1000, 1000),
-    onMoved: (box) {
-      setState(() => this.box = box);
+    onChanged: (event) {
+      setState(() => this.box = event.box);
     },
     ...
   );
@@ -53,3 +40,15 @@ defines the boundary for the box to move within.
 
 This will limit the movements to a box of size `1000x1000` and centered at origin. If your `Stack` has a size, provide
 that size to `clampingBox` to allow movements only within the `Stack` boundary.
+
+## Disable movements
+
+Setting `TransformableBox.movable` to `false` will disable movements.
+
+```dart title="Disable moving"
+  TransformableBox(
+    box: box, // position
+    movable: false,
+    ...
+  );
+```
