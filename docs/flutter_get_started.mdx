@@ -21,8 +21,8 @@ or run
 ## Usage
 Wrap the widget you want to resize/move with `TransformableBox`. 
 
-<Info>`TransformableBox` internally uses `Positioned` to place child at given position with given size. 
-So, `TransformableBox` must be a child of `Stack` widget.</Info>
+<Info>**_TransformableBox_** internally uses **_Positioned_** to place child at given position with given size. 
+So, **_TransformableBox_** must be a child of **_Stack_** widget.</Info>
 
 ```dart title="Using as a widget"
   Stack(
@@ -31,7 +31,7 @@ So, `TransformableBox` must be a child of `Stack` widget.</Info>
         box: box,
         flip: flip,
         onChanged: (box, flip) {
-          setState(() {
+          setState(() { // update the state
             this.box = box;
             this.flip = flip;
           });
@@ -54,6 +54,6 @@ So, `TransformableBox` must be a child of `Stack` widget.</Info>
 `onChanged` callback is called when user resizes/moves the box. You can use this callback to update the box by calling
 `setState` method explicitly.
 
-<Info>`TransformableBox` follows flutter widget pattern and does not store any state. So, you must store the box and 
-flip state in your widget state and pass it to `TransformableBox` as parameters. Don't forget to call `setState` 
+<Info>**_TransformableBox_** follows flutter widget pattern and does not store any state. So, you must store the box and 
+flip state in your widget state and pass it to **_TransformableBox_** as parameters. Don't forget to call **_setState_** 
 method to update the state.</Info>
