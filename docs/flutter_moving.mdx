@@ -37,7 +37,8 @@ Setting `TransformableBox.movable` to `false` will disable moving.
 
 ## Limiting movements
 
-You can limit the movements by setting `TransformableBox.clampingBox` property.
+You can limit the movements by setting `TransformableBox.clampingBox` property. `clampingBox` takes a `Rect` that 
+defines the boundary for the box to move within.
 
 ```dart title="Limiting movements"
   TransformableBox(
@@ -49,5 +50,6 @@ You can limit the movements by setting `TransformableBox.clampingBox` property.
     ...
   );
 ```
+
 This will limit the movements to a box of size `1000x1000` and centered at origin. If your `Stack` has a size, provide
 that size to `clampingBox` to allow movements only within the `Stack` boundary.
