@@ -3,9 +3,9 @@
   "description": "Easily create the best possible resizable and draggable boxes for your project.",
   "logo": "/assets/logo.png",
   "logoDark": "/assets/logo-dark.png",
+  "anchors": [{ "title": "Live Demo", "icon": "arrow-up-right-from-square", "link": "https://box-transform.codemagic.app" }],
   "sidebar": [
     ["Overview", "/"],
-    ["Getting Started", "/get_started"],
     ["Motivation", "/motivation"],
     [
       "Definitions", [
@@ -14,6 +14,7 @@
     ],
     [
       "Using with Flutter", [
+      ["Getting Started", "/flutter_get_started"],
       ["Moving", "/flutter_moving"],
       ["Resizing", "/flutter_resizing"],
       ["Using controller", "/flutter_controller"]
@@ -21,6 +22,7 @@
     ],
     [
       "Using the Dart API", [
+      ["Getting Started", "/get_started"],
       ["Moving", "/moving"],
       ["Resizing", "/resizing"]
     ]
