@@ -3,6 +3,7 @@
   "description": "Easily create the best possible resizable and draggable boxes for your project.",
   "logo": "/assets/logo.png",
   "logoDark": "/assets/logo-dark.png",
+  "favicon": "/assets/logo-dark.png",
   "anchors": [{ "title": "Live Demo", "icon": "arrow-up-right-from-square", "link": "https://box-transform.codemagic.app" }],
   "sidebar": [
     ["Overview", "/"],
