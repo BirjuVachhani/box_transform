@@ -12,8 +12,17 @@ Add this package as dependency in your `pubspec.yaml` file:
   dependencies:
     flutter_box_transform: <latest_version>
 ```
+or run
+
+```shell
+  flutter pub add flutter_box_transform
+```
 
 ## Usage
+Wrap the widget you want to resize/move with `TransformableBox`. 
+
+> `TransformableBox` internally uses `Positioned` to place child at given position with given size. 
+> So, `TransformableBox` must be a child of `Stack` widget.
 
 ```dart title="Using as a widget"
   Stack(
@@ -41,3 +50,10 @@ Add this package as dependency in your `pubspec.yaml` file:
     ],
   );
 ```
+
+`onChanged` callback is called when user resizes/moves the box. You can use this callback to update the box by calling
+`setState` method explicitly.
+
+> `TransformableBox` follows flutter widget pattern and does not store any state. So, you must store the box and flip
+> state in your widget state and pass it to `TransformableBox` as parameters. Don't forget to call `setState` method
+> to update the state.
