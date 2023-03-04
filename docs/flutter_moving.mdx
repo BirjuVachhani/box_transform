@@ -10,9 +10,9 @@ title: Moving
   Stack(
     children: [
       TransformableBox(
-        box: box, // position
+        rect: rect, // position
         onMoved: (event) {
-          setState(() => this.box = event.rect);
+          setState(() => this.rect = event.rect);
         },
         contentBuilder: {...},
       ),
@@ -29,10 +29,10 @@ defines the boundary for the box to move within.
 
 ```dart title="Limiting movements"
   TransformableBox(
-    box: box, // position
-    clampingBox: Rect.fromLTWH(0, 0, 1000, 1000),
+    rect: rect, // position
+    clampingRect: Rect.fromLTWH(0, 0, 1000, 1000),
     onChanged: (event) {
-      setState(() => this.box = event.box);
+      setState(() => this.rect = event.rect);
     },
     ...
   );
@@ -47,7 +47,7 @@ Setting `TransformableBox.movable` to `false` will disable movements.
 
 ```dart title="Disable moving"
   TransformableBox(
-    box: box, // position
+    rect: rect, // position
     movable: false,
     ...
   );

@@ -1,0 +1,49 @@
+---
+title: Using a controller
+---
+
+# Using a controller
+
+The first method is to use the controller to control the box. This is the most flexible method and allows you to
+control the transformable box externally with proper state management.
+
+To create a controller, you can use the `TransformableBoxController` class. It mirrors a lot of the observed parameters
+in the constructor excluding `contentBuilder`, `handleBuilder`, `handleGestureResponseDiameter` and
+`handleRenderedDiameter` since these are accessibility and rendering specific features.
+
+```dart
+final TransformableBoxController controller = TransformableBoxController();
+```
+
+When using a controller, you should not use the following parameters: `box`, `flip`, `clampingBox`, `constraints`,
+and `resolveResizeModeCallback`. These are all intrinsically managed by the controller.
+
+Be sure to manage your `controller`'s lifecycle properly. You can use the `dispose` method to dispose of the controller
+and release its resources.
+
+```dart
+class MySexyBox extends StatefulWidget {
+  @override
+  _MySexyBoxState createState() => _MySexyBoxState();
+}
+
+class _MySexyBoxState extends State<MySexyBox> {
+  final TransformableBoxController controller = TransformableBoxController(
+    resolveResizeModeCallback: (ResizeMode mode) { /* ... */ }, // optional.
+  );
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return TransformableBox(
+      controller: controller,
+      contentBuilder: (context, box) { /* ... */ },
+    );
+  }
+}
+```

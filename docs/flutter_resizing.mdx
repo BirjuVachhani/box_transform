@@ -11,10 +11,10 @@ title: Resizing
   Stack(
     children: [
       TransformableBox(
-        box: box, // position
+        rect: rect,
         onChanged: (event) {
           setState(() {
-            this.box = event.rect;
+            this.rect = event.rect;
             this.flip = event.flip;
           });
         },
@@ -22,124 +22,6 @@ title: Resizing
       ),
     ],
   );
-```
-
-## Usage
-
-The API of this widget is made in such a way so as to allow you to use it in several ways. Let's take a look at the
-constructor first:
-
-```dart
-  const TransformableBox({
-    super.key,
-    required this.contentBuilder,
-    this.onChanged,
-    this.onMoved,
-    this.onResized,
-    this.controller,
-    this.handleBuilder = _defaultHandleBuilder,
-    this.handleGestureResponseDiameter = 24,
-    this.handleRenderedDiameter = 12,
-    // raw
-    Rect? box,
-    Flip? flip,
-    Rect? clampingRect,
-    BoxConstraints? constraints,
-    ResolveResizeModeCallback? resolveResizeModeCallback,
-    // terminal update events
-    this.onMinWidthReached,
-    this.onMaxWidthReached,
-    this.onMinHeightReached,
-    this.onMaxHeightReached,
-    this.onTerminalWidthReached,
-    this.onTerminalHeightReached,
-    this.onTerminalSizeReached,
-  });
-```
-
-### Method 1 - Using the controller
-
-The first method is to use the controller to control the box. This is the most flexible method and allows you to
-control the transformable box externally with proper state management.
-
-To create a controller, you can use the `TransformableBoxController` class. It mirrors a lot of the observed parameters
-in the constructor excluding `contentBuilder`, `handleBuilder`, `handleGestureResponseDiameter` and
-`handleRenderedDiameter` since these are accessibility and rendering specific features.
-
-```dart
-final TransformableBoxController controller = TransformableBoxController();
-```
-
-When using a controller, you should not use the following parameters: `box`, `flip`, `clampingRect`, `constraints`,
-and `resolveResizeModeCallback`. These are all intrinsically managed by the controller.
-
-Be sure to manage your `controller`'s lifecycle properly. You can use the `dispose` method to dispose of the controller
-and release its resources.
-
-```dart
-class MySexyBox extends StatefulWidget {
-  @override
-  _MySexyBoxState createState() => _MySexyBoxState();
-}
-
-class _MySexyBoxState extends State<MySexyBox> {
-  final TransformableBoxController controller = TransformableBoxController(
-    resolveResizeModeCallback: (ResizeMode mode) { /* ... */ }, // optional.
-  );
-
-  @override
-  void dispose() {
-    controller.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return TransformableBox(
-      controller: controller,
-      contentBuilder: (context, box) { /* ... */ },
-    );
-  }
-}
-```
-
-### Method 2 - Using the raw parameters
-
-The second method is to use the raw parameters to control the box. This allows you to control the box without
-using a controller. The [Transformable Box](transformableBox) widget will handle the lifecycle of an internal
-controller automatically for you.
-
-To use the raw parameters, you should not use the `controller` parameter. You can use the following parameters:
-`box`, `flip`, `clampingRect`, `constraints`, and `resolveResizeModeCallback`.
-
-```dart
-class MySexierBox extends StatefulWidget {
-  @override
-  _MySexierBoxState createState() => _MySexierBoxState();
-}
-
-class _MySexierBoxState extends State<MySexierBox> {
-  Rect box = Rect.fromLTWH(0, 0, 100, 100);
-  Flip flip = Flip.none; // optional to handle flip behavior.
-
-  @override
-  Widget build(BuildContext context) {
-    return TransformableBox(
-      box: box,
-      flip: flip, // optional.
-      clampingRect: Rect.fromLTWH(0, 0, 200, 200), // optional.
-      constraints: BoxConstraints(minWidth: 50, minHeight: 50), // optional.
-      resolveResizeModeCallback: (ResizeMode mode) { /* ... */ }, // optional.
-      onChanged: (UIBoxTransformResult result) {
-        setState(() {
-          this.box = result.box;
-          this.flip = result.flip;
-        });
-      },
-      contentBuilder: (context, box) { /* ... */ },
-    );
-  }
-}
 ```
 
 ## ResolveResizeModeCallback
