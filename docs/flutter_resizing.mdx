@@ -34,6 +34,9 @@ title: Resizing
   );
 ```
 
+<Info>**_onChanged_** callback is a general callback that is called whenever a change is made to the box. To listen to specific
+changes, you can use **_onResized_** and **_onMoved_** callbacks for resizing and moving respectively.</Info>
+
 By default, resizing allows flipping the rect horizontally and vertically. Flipping is done by using the 
 `Transform.scale` widget with negative scale values.
 
@@ -45,12 +48,12 @@ The `resolveResizeModeCallback` is a callback that is called whenever a resize o
 given [Transformable Box](transformableBox). This allows you to define the resize behavior at the time of the resize 
 operation. This is useful when you want to change the resize behavior based on the state of the application.
 
-The most common use case for this is keyboard shortcuts. A `defaultResolveResizeModeCallback` function is used by 
+The most common use case for this is **keyboard shortcuts**. A `defaultResolveResizeModeCallback` function is used by 
 default when resizing, and it's job is to listen to keyboard meta keys to change the `ResizeMode`.
 
 ### Default Shortcut Keys for Resize Mode:
 
-1. ResizeMode.freeform: Default mode. When no keys are pressed.
+1. ResizeMode.freeform: **Default** mode. When no keys are pressed.
 2. ResizeMode.scale: When `Shift` key is pressed.
 3. ResizeMode.symmetric: When `Alt` key is pressed.
 4. ResizeMode.symmetricScale: When both `Shift` and `Alt` keys are pressed.
@@ -69,7 +72,7 @@ resizing to your liking. This can also be used to allow only certain resize mode
     contentBuilder: (context, rect, flip) {...},
   );
 ```
-This will resize the box such that the aspect ratio is preserved.
+This will resize the box such that the **aspect ratio** is preserved.
 
 ## Disable Flipping
 
@@ -102,6 +105,59 @@ Flipping can be disabled by setting the `flip` property to `Flip.none` and remov
   );
 ```
 
+## Constrain Resizing
+
+Resizing can be constrained by providing `minSize` and `maxSize` using `constraints` property.
+
+```dart title="Resizable widget with constrained resizing"
+  TransformableBox(
+    rect: rect,
+    flip: flip,
+    constraints: BoxConstraints(
+      minWidth: 100,
+      minHeight: 100,
+      maxWidth: 500,
+      maxHeight: 500,
+    ),
+    onChanged: (event) {...},
+    contentBuilder: (context, rect, flip) {...},
+  );
+```
+This will allow resizing the box between 100x100 and 500x500 pixels.
+
+### Constraint callbacks
+
+You can register `onTerminalSizeReached` callback to listen to when the box reaches the terminal size. This is useful
+when you want to show a message to the user that the box has reached the maximum size.  
+A terminal size is a size that is either the minimum or maximum size of the box on either axis. This can happen when
+the user tries to resize the box beyond the given **constraints** or the size reaches the `clampingRect` size.
+
+```dart title="Resizable widget with constrained resizing"
+  TransformableBox(
+    rect: rect,
+    flip: flip,
+    constraints: BoxConstraints(
+      minWidth: 100,
+      minHeight: 100,
+      maxWidth: 500,
+      maxHeight: 500,
+    ),
+    onTerminalSizeReached: (
+        bool reachedMinWidth,
+        bool reachedMaxWidth,
+        bool reachedMinHeight,
+        bool reachedMaxHeight,
+      ) {
+        // do something here.
+    },
+    onChanged: (event) {...},
+    contentBuilder: (context, rect, flip) {...},
+  );
+```
+
+You can also use `onMinWidthReached`, `onMaxWidthReached`, `onMinHeightReached` and `onMaxHeightReached` callbacks to 
+listen to the individual terminal size events or use `onTerminalWidthReached` and `onTerminalHeightReached` to listen
+to combined terminal width and height events respectively.
 
 
 [boxTransform]: https://github.com/BirjuVachhani/box_transform/tree/main/packages/box_transform
