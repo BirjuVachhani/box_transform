@@ -2,48 +2,84 @@
 title: Using a controller
 ---
 
-# Using a controller
+## Using a controller
 
-The first method is to use the controller to control the box. This is the most flexible method and allows you to
+`TransformableBox` can use a controller if provided. This is the most flexible method and allows you to
 control the transformable box externally with proper state management.
 
 To create a controller, you can use the `TransformableBoxController` class. It mirrors a lot of the observed parameters
 in the constructor excluding `contentBuilder`, `handleBuilder`, `handleGestureResponseDiameter` and
 `handleRenderedDiameter` since these are accessibility and rendering specific features.
 
-```dart
-final TransformableBoxController controller = TransformableBoxController();
+<Warning>When using a controller, you should not use the following parameters: `box`, `flip`, `clampingBox`, `constraints`,
+and `resolveResizeModeCallback`. These are all intrinsically managed by the controller.</Warning>
+
+Initialize a controller and provide.
+
+```dart title="Initializing a controller"
+  late final TransformableBoxController controller;
+
+  @override
+  void initState() {
+    super.initState();
+    controller = TransformableBoxController(rect: rect);
+  }
 ```
 
-When using a controller, you should not use the following parameters: `box`, `flip`, `clampingBox`, `constraints`,
-and `resolveResizeModeCallback`. These are all intrinsically managed by the controller.
+Don't forget to dispose your controller when no longer needed.
 
-Be sure to manage your `controller`'s lifecycle properly. You can use the `dispose` method to dispose of the controller
-and release its resources.
-
-```dart
-class MySexyBox extends StatefulWidget {
-  @override
-  _MySexyBoxState createState() => _MySexyBoxState();
-}
-
-class _MySexyBoxState extends State<MySexyBox> {
-  final TransformableBoxController controller = TransformableBoxController(
-    resolveResizeModeCallback: (ResizeMode mode) { /* ... */ }, // optional.
-  );
-
+```dart title="Disposing a controller"
   @override
   void dispose() {
     controller.dispose();
     super.dispose();
   }
-
-  @override
-  Widget build(BuildContext context) {
-    return TransformableBox(
-      controller: controller,
-      contentBuilder: (context, box) { /* ... */ },
-    );
-  }
-}
 ```
+
+Pass the controller to the `TransformableBox` constructor.
+
+```dart title="Passing a controller"
+  TransformableBox(
+    controller: controller,
+    contentBuilder: (context, rect, flip) {...},
+  );
+```
+
+### Listening to changes
+
+You can listen to changes in the controller using the `addListener` method. This will be called whenever the controller
+changes. You can use the `removeListener` method to remove the listener.
+
+```dart title="Listening to changes"
+  controller.addListener(onControllerChanged);
+```
+Remove the listener when no longer needed.
+
+```dart title="Removing a listener"
+  controller.removeListener(onControllerChanged);
+``` 
+### Setting constraints
+
+You can set constraints on the controller using the `setConstraints` method.
+
+```dart title="Setting constraints"
+  controller.setConstraints(BoxConstraints(
+    minWidth: 100,
+    minHeight: 100,
+    maxWidth: 1000,
+    maxHeight: 1000,
+  ));
+```
+
+### Limiting movements
+
+You can limit the movements of the controller using the `setClampingBox` method.
+
+```dart title="Limiting movements"
+  controller.setClampingRect(Rect.fromLTWH(0, 0, 1000, 1000));
+```
+
+### Other things you can do with a controller
+
+Controller almost mirrors the constructor parameters. You can do things like setting rect, flip, constraints, 
+clampingRect, disabling resizing or moving, etc. 
