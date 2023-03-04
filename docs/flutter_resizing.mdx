@@ -105,7 +105,7 @@ Flipping can be disabled by setting the `flip` property to `Flip.none` and remov
   );
 ```
 
-## Constrain Resizing
+## Constraints
 
 Resizing can be constrained by providing `minSize` and `maxSize` using `constraints` property.
 
@@ -127,12 +127,16 @@ This will allow resizing the box between 100x100 and 500x500 pixels.
 
 ### Constraint callbacks
 
-You can register `onTerminalSizeReached` callback to listen to when the box reaches the terminal size. This is useful
-when you want to show a message to the user that the box has reached the maximum size.  
-A terminal size is a size that is either the minimum or maximum size of the box on either axis. This can happen when
-the user tries to resize the box beyond the given **constraints** or the size reaches the `clampingRect` size.
+You can register callbacks to listen to when the box reaches the minimum or maximum size. This is useful when you want
+to react to these events to show some UI indication like showing a message or changing border color.
 
-```dart title="Resizable widget with constrained resizing"
+You can register `onTerminalSizeReached` callback to listen to when the box reaches the terminal size. This is useful
+when you want to show a message to the user that the box has reached the maximum size.
+
+<Info>A terminal size is a size that is either the minimum or maximum size of the box on either axis. This can happen when
+the user tries to resize the box beyond the given **constraints** or the size reaches the `clampingRect` size.</Info>
+
+```dart title="onTerminalSizeReached callback"
   TransformableBox(
     rect: rect,
     flip: flip,
@@ -156,7 +160,7 @@ the user tries to resize the box beyond the given **constraints** or the size re
 ```
 
 You can also use `onMinWidthReached`, `onMaxWidthReached`, `onMinHeightReached` and `onMaxHeightReached` callbacks to 
-listen to the individual terminal size events or use `onTerminalWidthReached` and `onTerminalHeightReached` to listen
+listen to the individual terminal size events. You can also use `onTerminalWidthReached` and `onTerminalHeightReached` to listen
 to combined terminal width and height events respectively.
 
 
