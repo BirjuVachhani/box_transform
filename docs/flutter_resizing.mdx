@@ -42,20 +42,34 @@ Resizing is freeform by default, meaning that the user can resize the box in any
 ## ResolveResizeModeCallback
 
 The `resolveResizeModeCallback` is a callback that is called whenever a resize operation is about to be performed on a
-given [Transformable Box](transformableBox) The reason this is a callback is because it allows you to define the
-resize behavior at the time of the resize operation. This is useful when you want to change the resize behavior
-based on the state of the application.
+given [Transformable Box](transformableBox). This allows you to define the resize behavior at the time of the resize 
+operation. This is useful when you want to change the resize behavior based on the state of the application.
 
-The most common use case for this is keyboard shortcuts. We provide a `defaultResolveResizeModeCallback`
-function that is used by default when resizing, and it's job is to listen to keyboard meta keys to change the
-`ResizeMode`. It sets the `ResizeMode` to `ResizeMode.scale` when the `Shift` key is pressed, `ResizeMode.symmetric`
-when the `Alt` key is pressed, and `ResizeMode.symmetricScale` when both the `Shift` and `Alt` keys are pressed.
-`ResizeMode.freeform` is used otherwise.
+The most common use case for this is keyboard shortcuts. A `defaultResolveResizeModeCallback` function is used by 
+default when resizing, and it's job is to listen to keyboard meta keys to change the `ResizeMode`.
 
-You can use this callback to change the `ResizeMode` of the resize operation however you like and can provide a
-fixed-behavior callback if desired.
+### Default Shortcut Keys for Resize Mode:
 
-`resolveResizeModeCallback: (ResizeMode mode) => ResizeMode.symmetric,`
+1. ResizeMode.freeform: Default mode. When no keys are pressed.
+2. ResizeMode.scale: When `Shift` key is pressed.
+3. ResizeMode.symmetric: When `Alt` key is pressed.
+4. ResizeMode.symmetricScale: When both `Shift` and `Alt` keys are pressed.
+
+See [ResizeModes](/resize_modes) page for more information on the different resize modes.
+
+Override this default behavior by providing `resolveResizeModeCallback` in `TransformableBox` constructor to customize
+resizing to your liking. This can also be used to allow only certain resize modes.
+
+```dart title="Resizing with preseving aspect ratio"
+  TransformableBox(
+    rect: rect,
+    flip: flip,
+    resolveResizeModeCallback: () => ResizeMode.scale,
+    onChanged: (event) {...},
+    contentBuilder: (context, rect, flip) {...},
+  );
+```
+This will resize the box such that the aspect ratio is preserved.
 
 ## Disable Flipping
 
