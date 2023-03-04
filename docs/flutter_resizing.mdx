@@ -12,17 +12,32 @@ title: Resizing
     children: [
       TransformableBox(
         rect: rect,
+        flip: flip,
         onChanged: (event) {
           setState(() {
             this.rect = event.rect;
             this.flip = event.flip;
           });
         },
-        contentBuilder: {...},
+        contentBuilder: (context, rect, flip) => Transform.scale(
+          scaleX: flip.isHorizontal ? -1 : 1, // flip horizontally
+          scaleY: flip.isVertical ? -1 : 1, // flip vertically
+          child: Image.asset( // your widget goes here.
+            'assets/images/landscape.jpg',
+            width: rect.width,
+            height: rect.height,
+            fit: BoxFit.fill,
+          ),
+        ),
       ),
     ],
   );
 ```
+
+By default, resizing allows flipping the rect horizontally and vertically. Flipping is done by using the 
+`Transform.scale` widget with negative scale values.
+
+Resizing is freeform by default, meaning that the user can resize the box in any direction and in any size.
 
 ## ResolveResizeModeCallback
 
@@ -42,5 +57,38 @@ fixed-behavior callback if desired.
 
 `resolveResizeModeCallback: (ResizeMode mode) => ResizeMode.symmetric,`
 
-[boxTransform]  https://github.com/BirjuVachhani/box_transform/tree/main/packages/box_transform
-[transformableBox]  https://github.com/BirjuVachhani/box_transform/blob/main/packages/flutter_box_transform/lib/src/transformable_box.dart
+## Disable Flipping
+
+Flipping can be disabled by setting the `flip` property to `Flip.none` and removing `Transform.scale` widget from
+`contentBuilder` callback.
+
+```dart title="Resizable widget without flipping"
+  Stack(
+    children: [
+      TransformableBox(
+        rect: rect,
+        flip: Flip.none,
+        flipEnabled: false,
+        onChanged: (event) {
+          setState(() {
+            this.rect = event.rect;
+            this.flip = event.flip;
+          });
+        },
+        contentBuilder: (context, rect, flip) {
+          return Image.asset( // your widget goes here.
+            'assets/images/landscape.jpg',
+            width: rect.width,
+            height: rect.height,
+            fit: BoxFit.fill,
+          );
+        },
+      ),
+    ],
+  );
+```
+
+
+
+[boxTransform]: https://github.com/BirjuVachhani/box_transform/tree/main/packages/box_transform
+[transformableBox]: https://github.com/BirjuVachhani/box_transform/blob/main/packages/flutter_box_transform/lib/src/transformable_box.dart

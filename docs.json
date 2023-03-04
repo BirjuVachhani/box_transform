@@ -19,7 +19,7 @@
       ["Moving", "/flutter_moving"],
       ["Resizing", "/flutter_resizing"],
       ["Custom Resize Handles", "/handles.mdx"],
-      ["Using controller", "/flutter_controller"]
+      ["Using a controller", "/flutter_controller"]
     ]
     ],
     [
