@@ -133,8 +133,9 @@ to react to these events to show some UI indication like showing a message or ch
 You can register `onTerminalSizeReached` callback to listen to when the box reaches the terminal size. This is useful
 when you want to show a message to the user that the box has reached the maximum size.
 
-<Info>A terminal size is a size that is either the minimum or maximum size of the box on either axis. This can happen when
-the user tries to resize the box beyond the given **constraints** or the size reaches the `clampingRect` size.</Info>
+<Info>A **terminal size** is a size that is either the **minimum** or **maximum** size of the box on either axis. 
+This can happen when the user tries to resize the box beyond the given **constraints** or the size reaches the 
+`clampingRect` size.</Info>
 
 ```dart title="onTerminalSizeReached callback"
   TransformableBox(
@@ -163,6 +164,19 @@ You can also use `onMinWidthReached`, `onMaxWidthReached`, `onMinHeightReached` 
 listen to the individual terminal size events. You can also use `onTerminalWidthReached` and `onTerminalHeightReached` to listen
 to combined terminal width and height events respectively.
 
+## Disable Resizing
+
+Resizing can be disabled by setting the `resizable` property to `false`.
+
+```dart title="Resizable widget without resizing"
+  TransformableBox(
+    rect: rect,
+    flip: flip,
+    resizable: false,
+    onChanged: (event) {...},
+    contentBuilder: (context, rect, flip) {...},
+  );
+```
 
 [boxTransform]: https://github.com/BirjuVachhani/box_transform/tree/main/packages/box_transform
 [transformableBox]: https://github.com/BirjuVachhani/box_transform/blob/main/packages/flutter_box_transform/lib/src/transformable_box.dart

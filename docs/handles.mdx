@@ -1,5 +1,51 @@
 ---
-title: Custom Resize Handles
+title: Resize Handles
 ---
 
-# Custom Resize Handles
+# Resize Handles
+
+By default, circular resize handles are used to resize the box. These handles ideal for are highly customizable and
+can be used to create any type of resize handles.
+
+Use `handleSize` to change the visual size of the handles. Use `handleTapTargetSize` to change the size of the invisible 
+interactive area that is used to resize the box.
+
+<Info>It is an error to provide **_handleSize_** that is larger than **_handleTapTargetSize_**.</Info>
+
+```dart title="Custom sized default handles"
+  TransformableBox(
+    rect: rect,
+    flip: flip,
+    handleSize: 20, // visual size of the handles
+    handleTapTargetSize: 24, // size of the invisible interactive area
+    onChanged: (event) {...},
+    contentBuilder: (context, rect, flip) {...},
+  );
+```
+
+## Custom Handles
+
+You can build your own handles using `handleBuilder` property in `TransformableBox` constructor. It provides access
+to the `Buildcontext` and `HandlePosition` of the handle.
+
+<Info> Handles built using **_handleBuilder_** must respect the **_handleSize_** and **_handleTapTargetSize_** 
+properties.</Info>
+
+```dart title="Custom circular red handles"
+  TransformableBox(
+    rect: rect,
+    flip: flip,
+    handleBuilder: (context, handle) {
+      return Container(
+        width: size,
+        height: size,
+        decoration: BoxDecoration(
+          color: Colors.red,
+          shape: BoxShape.circle,
+        ),
+      );
+    },
+    onChanged: (event) {...},
+    contentBuilder: (context, rect, flip) {...},
+  );
+``` 
