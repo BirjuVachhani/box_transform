@@ -19,15 +19,11 @@ title: Resizing
             this.flip = event.flip;
           });
         },
-        contentBuilder: (context, rect, flip) => Transform.scale(
-          scaleX: flip.isHorizontal ? -1 : 1, // flip horizontally
-          scaleY: flip.isVertical ? -1 : 1, // flip vertically
-          child: Image.asset( // your widget goes here.
-            'assets/images/landscape.jpg',
-            width: rect.width,
-            height: rect.height,
-            fit: BoxFit.fill,
-          ),
+        contentBuilder: (context, rect, flip) => Image.asset( // your widget goes here.
+          'assets/images/landscape.jpg',
+          width: rect.width,
+          height: rect.height,
+          fit: BoxFit.fill,
         ),
       ),
     ],
@@ -74,36 +70,43 @@ resizing to your liking. This can also be used to allow only certain resize mode
 ```
 This will resize the box such that the **aspect ratio** is preserved.
 
-## Disable Flipping
+## Disabling Flip
 
-Flipping can be disabled by setting the `flip` property to `Flip.none` and removing `Transform.scale` widget from
-`contentBuilder` callback.
+By default, resizing allows flipping the rect horizontally and vertically. Flipping is done by using the
+`Transform.scale` widget with negative scale values internally. There are two kinds of flipping involved in resizing:
 
-```dart title="Resizable widget without flipping"
-  Stack(
-    children: [
-      TransformableBox(
-        rect: rect,
-        flip: Flip.none,
-        flipEnabled: false,
-        onChanged: (event) {
-          setState(() {
-            this.rect = event.rect;
-            this.flip = event.flip;
-          });
-        },
-        contentBuilder: (context, rect, flip) {
-          return Image.asset( // your widget goes here.
-            'assets/images/landscape.jpg',
-            width: rect.width,
-            height: rect.height,
-            fit: BoxFit.fill,
-          );
-        },
-      ),
-    ],
+1. Flipping the rect while resizing: While resizing, the rect can be flipped horizontally and vertically whenever the
+user drags a handle beyond the opposite side of the rect. This allows more flexibility in resizing the box. However,
+this is not responsible for flipping the content of the box.
+
+This behavior can be disabled by setting `flipRectWhileResizing` to `false`.
+
+```dart title="Disable flipping the rect while resizing"
+  TransformableBox(
+    rect: rect,
+    flip: flip,
+    flipRectWhileResizing: false,
+    onChanged: (event) {...},
+    contentBuilder: (context, rect, flip) {...},
   );
 ```
+
+2. Flipping the content of the box: This is done by using the `Transform.scale` widget with negative scale values. This
+is done to allow the content to be flipped horizontally and vertically. 
+
+This behavior can be disabled by setting `flipChild` to `false`.
+
+```dart title="Disable flipping the child/content of the box"
+  TransformableBox(
+    rect: rect,
+    flip: flip,
+    flipChild: false,
+    onChanged: (event) {...},
+    contentBuilder: (context, rect, flip) {...},
+  );
+```
+
+You can set both `flipRectWhileResizing` and `flipChild` to `false` to disable flipping completely.
 
 ## Constraints
 
