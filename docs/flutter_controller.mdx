@@ -82,4 +82,24 @@ You can limit the movements of the controller using the `setClampingBox` method.
 ### Other things you can do with a controller
 
 Controller almost mirrors the constructor parameters. You can do things like setting rect, flip, constraints, 
-clampingRect, disabling resizing or moving, etc. 
+clampingRect, disabling resizing or moving, etc.
+
+```dart title="Things controller can do"
+// Change current rect
+controller.setRect(rect);
+
+// Change current flip
+controller.setFlip(flip);
+
+// Change constraints
+controller.setConstraints(constraints);
+
+// Change clamping rect
+controller.setClampingRect(clampingRect);
+
+// Disable content/child flipping
+controller.setFlipChild(false);
+
+// Disable flipping the rect while resizing
+controller.setFlipRectWhileResizing(false);
+```
