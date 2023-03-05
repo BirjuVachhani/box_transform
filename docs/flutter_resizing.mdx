@@ -70,12 +70,13 @@ resizing to your liking. This can also be used to allow only certain resize mode
 ```
 This will resize the box such that the **aspect ratio** is preserved.
 
-## Disabling Flip
+## Flipping
 
 By default, resizing allows flipping the rect horizontally and vertically. Flipping is done by using the
 `Transform.scale` widget with negative scale values internally. There are two kinds of flipping involved in resizing:
 
-1. Flipping the rect while resizing: While resizing, the rect can be flipped horizontally and vertically whenever the
+### Flipping the rect while resizing
+While resizing, the rect can be flipped horizontally and vertically whenever the
 user drags a handle beyond the opposite side of the rect. This allows more flexibility in resizing the box. However,
 this is not responsible for flipping the content of the box.
 
@@ -91,7 +92,8 @@ This behavior can be disabled by setting `flipRectWhileResizing` to `false`.
   );
 ```
 
-2. Flipping the content of the box: This is done by using the `Transform.scale` widget with negative scale values. This
+### Flipping the content of the box
+This is done by using the `Transform.scale` widget with negative scale values. This
 is done to allow the content to be flipped horizontally and vertically. 
 
 This behavior can be disabled by setting `flipChild` to `false`.
