@@ -2,7 +2,7 @@
 title: Resizing
 ---
 
-# Resizing
+## Resizing
 
 `TransformableBox` can be used to resize a widget by default. [Transformable Box](transformableBox) utilizes 
 [Box Transform](boxTransform) to create a fully-featured Flutter implementation of the [Box Transform](boxTransform) API.
@@ -38,7 +38,7 @@ By default, resizing allows flipping the rect horizontally and vertically. Flipp
 
 Resizing is freeform by default, meaning that the user can resize the box in any direction and in any size.
 
-## ResolveResizeModeCallback
+## Controlling Resize Modes
 
 The `resolveResizeModeCallback` is a callback that is called whenever a resize operation is about to be performed on a
 given [Transformable Box](transformableBox). This allows you to define the resize behavior at the time of the resize 
@@ -47,7 +47,7 @@ operation. This is useful when you want to change the resize behavior based on t
 The most common use case for this is **keyboard shortcuts**. A `defaultResolveResizeModeCallback` function is used by 
 default when resizing, and it's job is to listen to keyboard meta keys to change the `ResizeMode`.
 
-### Default Shortcut Keys for Resize Mode:
+### Default Resize Mode:
 
 1. ResizeMode.freeform: **Default** mode. When no keys are pressed.
 2. ResizeMode.scale: When `Shift` key is pressed.
